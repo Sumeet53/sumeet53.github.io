@@ -1,136 +1,316 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Opal Luna Labs</title>
-  <style>
-    :root {
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #0f172a;
-      --muted: #64748b;
-      --accent: #2563eb;
-      --border: #e2e8f0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opal Luna Labs</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Montserrat', 'Plus Jakarta Sans', 'sans-serif'],
+                        body: ['DM Sans', 'Open Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 2.5rem 1.5rem;
-    }
+    <style>
+        /* Subtle Canvas/CSS Gradient Background Animation */
+        @keyframes subtleGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-      width: 100%;
-    }
+        .animated-bg {
+            background: linear-gradient(-45deg, #f8fafc, #eef2ff, #f0f9ff, #f3e8ff, #f8fafc);
+            background-size: 300% 300%;
+            animation: subtleGradient 16s ease infinite;
+        }
 
-    header {
-      text-align: center;
-      margin-bottom: 3rem;
-      padding-top: 1rem;
-    }
+        /* Fade into existence animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
 
-    .badge {
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--accent);
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      margin-bottom: 1.25rem;
-    }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    h1 {
-      font-size: 2.25rem;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      margin-bottom: 0.75rem;
-    }
-
-    p.lead {
-      color: var(--muted);
-      font-size: 1.1rem;
-    }
-
-    .grid {
-      display: grid;
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-    }
-
-    .card h2 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .card p {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    footer {
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.875rem;
-      border-top: 1px solid var(--border);
-      padding-top: 2rem;
-    }
-  </style>
+        /* Nav active outline style & hover animation */
+        .nav-btn {
+            transition: transform 0.2s ease, color 0.2s ease, outline 0.2s ease;
+        }
+        .nav-btn:hover {
+            transform: scale(1.05);
+            color: #2563eb !important;
+        }
+        .nav-btn-active {
+            outline: 2px solid #2563eb;
+            outline-offset: 2px;
+            font-weight: 600;
+        }
+    </style>
 </head>
-<body>
+<body class="animated-bg min-h-screen text-slate-800 font-body flex flex-col transition-colors duration-300">
 
-  <div class="container">
-    <header>
-      <span class="badge">Independent Software Studio</span>
-      <h1>Opal Luna Labs</h1>
-      <p class="lead">Building focused, purposeful web applications and digital utilities.</p>
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/50">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo / Name -->
+            <button onclick="showTab('home')" class="flex items-center gap-3 text-left">
+                <!-- Embedded Inline Saturn SVG Logo -->
+                <div class="w-10 h-10 flex items-center justify-center bg-blue-600 rounded-2xl p-1.5 shadow-sm">
+                    <svg viewBox="0 0 200 200" class="w-full h-full text-emerald-200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Planet body -->
+                        <circle cx="100" cy="100" r="48" fill="currentColor" stroke="#ffffff" stroke-width="3"/>
+                        <!-- Saturn Ring Back -->
+                        <path d="M 30 100 A 75 25 0 0 1 170 100" stroke="#ffffff" stroke-width="12" stroke-linecap="round" fill="none"/>
+                        <path d="M 30 100 A 75 25 0 0 1 170 100" stroke="#f0fdf4" stroke-width="6" stroke-linecap="round" fill="none"/>
+                        <!-- Planet front half over ring -->
+                        <path d="M 52 100 A 48 48 0 0 0 148 100" fill="currentColor"/>
+                        <!-- Saturn Ring Front -->
+                        <path d="M 170 100 A 75 25 0 0 1 30 100" stroke="#ffffff" stroke-width="12" stroke-linecap="round" fill="none"/>
+                        <path d="M 170 100 A 75 25 0 0 1 30 100" stroke="#f0fdf4" stroke-width="6" stroke-linecap="round" fill="none"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-heading font-bold text-lg tracking-tight block leading-tight text-slate-900">Opal Luna Labs</span>
+                </div>
+            </button>
+
+            <!-- Nav Items -->
+            <nav class="flex items-center gap-2 sm:gap-4">
+                <button id="nav-home" onclick="showTab('home')" class="nav-btn nav-btn-active px-4 py-2 rounded-full text-sm font-medium text-slate-700">
+                    Home
+                </button>
+                <button id="nav-school-tasks" onclick="showTab('school-tasks')" class="nav-btn px-4 py-2 rounded-full text-sm font-medium text-slate-700">
+                    School Tasks
+                </button>
+                <button id="nav-machine-track" onclick="showTab('machine-track')" class="nav-btn px-4 py-2 rounded-full text-sm font-medium text-slate-700">
+                    Machine Track
+                </button>
+            </nav>
+        </div>
     </header>
 
-    <main class="grid">
-      <div class="card">
-        <h2>SchoolTasks</h2>
-        <p>A smart task organizer helping students and parents extract, track, and complete school assignments from daily classroom updates.</p>
-      </div>
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-5xl mx-auto px-6 py-10 w-full">
 
-      <div class="card">
-        <h2>MachineTrack</h2>
-        <p>A lightweight operational tracking tool for monitoring machine uptime, maintenance routines, and production shift schedules.</p>
-      </div>
+        <!-- ================= HOME TAB ================= -->
+        <div id="tab-home" class="space-y-10">
+            
+            <!-- Hero Banner (Side-by-side: Tagline on Left, Plant Graphic on Right) -->
+            <section class="flex flex-col md:flex-row items-center justify-between gap-8 pt-4">
+                <div class="md:w-3/4 space-y-4">
+                    <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
+                        <span class="text-slate-900 block">Building a useful web.</span>
+                        <span class="text-blue-600 block">One website at a time.</span>
+                    </h1>
+                </div>
+
+                <!-- Simple Plant Graphic SVG -->
+                <div class="md:w-1/4 flex justify-center md:justify-end py-2">
+                    <svg class="w-32 h-32 sm:w-36 sm:h-36 text-emerald-500 transform hover:scale-105 transition-transform duration-500" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M66 138H134V145H66V138Z" fill="currentColor" fill-opacity="0.5"/>
+                        <!-- Stem -->
+                        <path d="M100 138C100 138 100 80 100 65" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                        <path d="M100 105C100 105 120 95 128 85" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M100 118C100 118 80 110 72 100" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        <!-- Leaves -->
+                        <path d="M100 65C100 65 82 50 68 62C54 74 78 92 100 65Z" fill="currentColor"/>
+                        <path d="M100 65C100 65 118 50 132 62C146 74 122 92 100 65Z" fill="currentColor"/>
+                        <path d="M128 85C128 85 142 75 148 86C154 97 136 104 128 85Z" fill="currentColor" fill-opacity="0.8"/>
+                        <path d="M72 100C72 100 58 90 52 101C46 112 64 119 72 100Z" fill="currentColor" fill-opacity="0.8"/>
+                    </svg>
+                </div>
+            </section>
+
+            <!-- Explanation Section (Fades into existence on scroll) -->
+            <section class="fade-in-section bg-white/60 backdrop-blur-md rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-200/50">
+                <p class="text-lg sm:text-xl text-slate-700 leading-relaxed font-normal">
+                    We are Opal Luna Labs, a digital studio dedicated to crafting simple, purpose-driven web applications designed to streamline everyday organization and project tracking. Guided by our motto, "Building a useful web. One website at a time," we focus on creating practical tools that solve real-world productivity challenges without any unnecessary clutter.
+                </p>
+                <p class="mt-6 text-lg sm:text-xl text-slate-700 leading-relaxed font-normal">
+                    Our portfolio features intuitive web solutions such as School Tasks, a dedicated platform built to help students effortlessly organize homework, deadlines, and daily academic goals, alongside Machine Track, an application structured to monitor and log machine operations or device activities efficiently. By prioritizing minimalist design, fast accessibility, and clean interfaces, we consistently deliver utility-focused web tools that turn everyday task management into a seamless experience.
+                </p>
+            </section>
+
+            <!-- Featured Applications Cards Section -->
+            <section class="space-y-6">
+                <!-- School Tasks Block -->
+                <div class="bg-white/70 backdrop-blur-md rounded-3xl p-8 shadow-sm border border-slate-200/50 space-y-4">
+                    <h2 class="font-heading text-2xl font-bold text-slate-900">School Tasks</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        A dedicated platform built to help students effortlessly organize homework, deadlines, and daily academic goals.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <button onclick="showTab('school-tasks')" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-colors">
+                            About School Tasks
+                        </button>
+                        <a href="https://sumeet53.github.io/School-Tasks/index.html" target="_blank" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-full text-sm font-semibold transition-colors flex items-center gap-2">
+                            <span>Visit School Tasks</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Machine Track Block -->
+                <div class="bg-white/70 backdrop-blur-md rounded-3xl p-8 shadow-sm border border-slate-200/50 space-y-4">
+                    <h2 class="font-heading text-2xl font-bold text-slate-900">Machine Track</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        An application structured to monitor and log machine operations or device activities efficiently.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <button onclick="showTab('machine-track')" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-colors">
+                            About Machine Track
+                        </button>
+                        <a href="https://sumeet53.github.io/Machine-Track/index.html" target="_blank" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-full text-sm font-semibold transition-colors flex items-center gap-2">
+                            <span>Visit Machine Track</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= SCHOOL TASKS TAB ================= -->
+        <div id="tab-school-tasks" class="hidden space-y-8">
+            <div class="space-y-3">
+                <h1 class="font-heading text-4xl sm:text-5xl font-extrabold text-slate-900">School Tasks</h1>
+                <p class="text-xl font-medium text-blue-600">The one stop solution for parents and students.</p>
+            </div>
+
+            <div class="bg-white/70 backdrop-blur-md rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-200/50 space-y-6">
+                <p class="text-lg text-slate-700 leading-relaxed">
+                    Welcome to School Tasks, your ultimate student companion designed to keep your academic life effortlessly organized. As part of our mission at Opal Luna Labs—Building a useful web. One website at a time—we created School Tasks to strip away unnecessary distraction and give you a clean, intuitive space to track homework, manage upcoming project deadlines, and stay on top of daily study goals.
+                </p>
+                <p class="text-lg text-slate-700 leading-relaxed">
+                    Whether you are managing multi-subject assignments or keeping tabs on weekly schedules, School Tasks breaks down your workload into clear, manageable steps so you never miss a deadline again.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-heading font-semibold text-lg text-slate-800">Interactive Preview</h3>
+                    <a href="https://sumeet53.github.io/School-Tasks/index.html" target="_blank" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-colors flex items-center gap-2 shadow-sm">
+                        <span>Visit School Tasks</span>
+                        <i class="fa-solid fa-external-link text-xs"></i>
+                    </a>
+                </div>
+                <div class="w-full h-[600px] rounded-3xl overflow-hidden border border-slate-200/80 bg-white shadow-sm">
+                    <iframe src="https://sumeet53.github.io/School-Tasks/index.html" class="w-full h-full border-0" title="School Tasks Web Application"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MACHINE TRACK TAB ================= -->
+        <div id="tab-machine-track" class="hidden space-y-8">
+            <div class="space-y-3">
+                <h1 class="font-heading text-4xl sm:text-5xl font-extrabold text-slate-900">Machine Track</h1>
+                <p class="text-xl font-medium text-blue-600">Streamlined equipment monitoring & activity logging.</p>
+            </div>
+
+            <div class="bg-white/70 backdrop-blur-md rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-200/50 space-y-6">
+                <p class="text-lg text-slate-700 leading-relaxed">
+                    Welcome to Machine Track, an intuitive logging tool engineered to keep system and equipment management simple and reliable. Built under our vision at Opal Luna Labs—Building a useful web. One website at a time—Machine Track strips away unnecessary complexity to give you a clear, centralized dashboard for tracking hardware activity, monitoring operational tasks, and logging routine maintenance.
+                </p>
+                <p class="text-lg text-slate-700 leading-relaxed">
+                    Whether you need to record runtime hours, log system checks, or manage equipment statuses, Machine Track provides a fast, efficient interface that ensures your operations run smoothly without getting bogged down by complicated software.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-heading font-semibold text-lg text-slate-800">Interactive Preview</h3>
+                    <a href="https://sumeet53.github.io/Machine-Track/index.html" target="_blank" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-colors flex items-center gap-2 shadow-sm">
+                        <span>Visit Machine Track</span>
+                        <i class="fa-solid fa-external-link text-xs"></i>
+                    </a>
+                </div>
+                <div class="w-full h-[600px] rounded-3xl overflow-hidden border border-slate-200/80 bg-white shadow-sm">
+                    <iframe src="https://sumeet53.github.io/Machine-Track/index.html" class="w-full h-full border-0" title="Machine Track Web Application"></iframe>
+                </div>
+            </div>
+        </div>
+
     </main>
-  </div>
 
-  <footer>
-    <div class="container">
-      &copy; 2026 Opal Luna Labs. All rights reserved.
-    </div>
-  </footer>
+    <!-- FOOTER -->
+    <footer class="mt-auto border-t border-slate-200/50 bg-white/40 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+            <p>© <span id="year"></span> Opal Luna Labs. All rights reserved.</p>
+            <p class="font-medium">Building a useful web. One website at a time.</p>
+        </div>
+    </footer>
 
+    <!-- INTERACTION & ANIMATION SCRIPTS -->
+    <script>
+        // Set dynamic copyright year safely
+        document.addEventListener('DOMContentLoaded', () => {
+            const yearElem = document.getElementById('year');
+            if (yearElem) {
+                yearElem.textContent = new Date().getFullYear();
+            }
+        });
+
+        // Tab Switching Logic
+        function showTab(tabId) {
+            // Hide all tab containers
+            ['home', 'school-tasks', 'machine-track'].forEach(id => {
+                const tab = document.getElementById(`tab-${id}`);
+                const navBtn = document.getElementById(`nav-${id}`);
+                if (tab) tab.classList.add('hidden');
+                if (navBtn) navBtn.classList.remove('nav-btn-active');
+            });
+
+            // Show selected container
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            const activeNavBtn = document.getElementById(`nav-${tabId}`);
+            if (activeTab) activeTab.classList.remove('hidden');
+            if (activeNavBtn) activeNavBtn.classList.add('nav-btn-active');
+
+            // Smooth scroll up on tab change
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Scroll Intersection Observer for smooth Fade-in
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
